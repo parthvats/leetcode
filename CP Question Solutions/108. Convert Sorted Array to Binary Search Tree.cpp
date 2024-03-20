@@ -1,6 +1,6 @@
 class Solution {
 public:
-    TreeNode* bst(vector<int> nums, int start, int end){
+    TreeNode* bst(vector<int>& nums, int start, int end){
         if(start > end ) return NULL;
         int mid = (start+end)/2;
         TreeNode* root = new TreeNode(nums[mid]);
