@@ -6,7 +6,7 @@ public:
         bool b1 = isValidBST(root->left);
         if(!b1) return false;
         if(root->val <=mx ) return false;
-        else mx = root->val;
+        mx = root->val;
         bool b2 = isValidBST(root->right);
         return b1 && b2;
     }
