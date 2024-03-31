@@ -14,3 +14,39 @@ public:
         return res;
     }
 };
+
+
+// Morris Traversal
+
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> res;
+
+        TreeNode* curr = root;
+
+        while(curr != NULL){
+            if(curr->left == NULL){
+                res.push_back(curr->val);
+                curr = curr->right;
+            }
+            else{
+                TreeNode* temp = curr->left;
+                while(temp->right != NULL && temp->right != curr){
+                    temp = temp->right;
+                }
+
+                if(temp->right == NULL){
+                    temp->right = curr;
+                    curr = curr->left;
+                }
+                else if(temp->right == curr){
+                    temp->right = NULL;
+                    res.push_back(curr->val);
+                    curr = curr->right;
+                }
+            }
+        }
+        return res;
+    }
+};
