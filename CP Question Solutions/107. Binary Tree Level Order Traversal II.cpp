@@ -22,3 +22,30 @@ public:
         return res;
     }
 };
+
+
+//with queue
+
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if(root == NULL) return {};
+        vector<vector<int>> res;
+        queue<TreeNode*> q;
+        q.push(root);
+
+        while(!q.empty()){
+            int n = q.size();
+            vector<int> temp;
+            for(int i = 0; i < n; i++){
+                TreeNode* node = q.front();
+                temp.push_back(node->val);
+                if(node->left != NULL) q.push(node->left);
+                if(node->right != NULL) q.push(node->right);
+                q.pop();
+            }
+            res.push_back(temp);
+        }
+        return res;
+    }
+};
