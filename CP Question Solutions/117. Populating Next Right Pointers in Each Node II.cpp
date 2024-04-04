@@ -21,3 +21,42 @@ public:
         return root;
     }
 };
+
+// iterateive solution
+
+class Solution {
+public:
+    Node* connect(Node* root) {
+        Node* curr  = root;
+
+        while(curr != NULL){
+            Node* head = NULL;
+            Node* tail = NULL;
+            while(curr!=NULL){
+                if(curr->left != NULL){
+                    if(head == NULL && tail == NULL){ // also we can write as  if(head == NULL)
+                        head = curr->left;
+                        tail = curr->left;
+                    }
+                    else{
+                        tail->next = curr->left;
+                        tail = tail->next;
+                    }
+                }
+                if(curr->right != NULL){
+                    if(head == NULL && tail == NULL){// also we can write as  if(head == NULL)
+                        head = curr->right;
+                        tail = curr->right;
+                    }
+                    else{
+                        tail->next = curr->right;
+                        tail = tail->next;
+                    }
+                }
+                curr = curr->next;
+            }
+            curr = head;
+        }
+        return root;
+    }
+};
