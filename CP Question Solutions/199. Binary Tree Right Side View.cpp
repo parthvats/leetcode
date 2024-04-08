@@ -16,3 +16,26 @@ public:
         
     }
 };
+
+//Reverse Level Order Traversal
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        if(root == NULL) return {};
+        queue<TreeNode*> q;
+        q.push(root);
+        vector<int> res;
+
+        while(!q.empty()){
+            int n  = q.size();
+            for(int i = 0; i < n; i++){
+                TreeNode* top = q.front();
+                if(i == 0) res.push_back(top->val);
+                if(top->right != NULL) q.push(top->right);
+                if(top->left != NULL) q.push(top->left);
+                q.pop();
+            }
+        }
+        return res;
+    }
+};
