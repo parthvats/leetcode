@@ -33,3 +33,50 @@ class Solution {
         
     }
 };
+
+
+//queue solution
+
+
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+
+        vector<vector<int>> vis(m, vector<int>(n,0));
+        queue<vector<int>> q; 
+
+        int res = 0;
+
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(grid[i][j] == '0' || vis[i][j] == 1) continue;
+                q.push({i,j});
+                vis[i][j] = 1;
+                while(!q.empty()){
+                    vector<int> v = q.front();
+                    q.pop();
+                    if(((v[1]+1) < n) && grid[v[0]][v[1]+1] == '1' && vis[v[0]][v[1]+1] == 0) {
+                        vis[v[0]][v[1]+1] = 1;
+                        q.push({v[0],v[1]+1});
+                    }
+                    if(((v[1]-1) >= 0) && grid[v[0]][v[1]-1] == '1' && vis[v[0]][v[1]-1] == 0) {
+                        vis[v[0]][v[1]-1] = 1;
+                        q.push({v[0],v[1]-1});
+                    }
+                    if(((v[0]+1) < m) && grid[v[0]+1][v[1]] == '1' && vis[v[0]+1][v[1]] == 0) {
+                        vis[v[0]+1][v[1]] = 1;
+                        q.push({v[0]+1,v[1]});
+                    }
+                    if(((v[0]-1) >= 0) && grid[v[0]-1][v[1]] == '1' && vis[v[0]-1][v[1]] == 0) {
+                        vis[v[0]-1][v[1]] = 1;
+                        q.push({v[0]-1,v[1]});
+                    }
+                }
+                res++;
+            }
+        }
+        return res;
+    }
+};
