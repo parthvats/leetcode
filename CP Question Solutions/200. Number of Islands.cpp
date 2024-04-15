@@ -35,7 +35,7 @@ class Solution {
 };
 
 
-//queue solution
+//BFS queue solution
 
 
 class Solution {
@@ -72,6 +72,52 @@ public:
                     if(((v[0]-1) >= 0) && grid[v[0]-1][v[1]] == '1' && vis[v[0]-1][v[1]] == 0) {
                         vis[v[0]-1][v[1]] = 1;
                         q.push({v[0]-1,v[1]});
+                    }
+                }
+                res++;
+            }
+        }
+        return res;
+    }
+};
+
+
+// BFS with queue and pair<int, int> instead of vector<int>
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+
+        queue<pair<int, int>> q; 
+
+        int res = 0;
+
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(grid[i][j] == '0') continue;
+                q.push({i,j});
+                grid[i][j] = '0';
+                while(!q.empty()){
+                    pair<int, int> v = q.front();
+                    int r = v.first;
+                    int c = v.second;
+                    q.pop();
+                    if(((c+1) < n) && grid[r][c+1] == '1') {
+                        grid[r][c+1] = '0';
+                        q.push({r,c+1});
+                    }
+                    if(((c-1) >= 0) && grid[r][c-1] == '1') {
+                        grid[r][c-1] = '0';
+                        q.push({r,c-1});
+                    }
+                    if(((r+1) < m) && grid[r+1][c] == '1') {
+                        grid[r+1][c] = '0';
+                        q.push({r+1,c});
+                    }
+                    if(((r-1) >= 0) && grid[r-1][c] == '1') {
+                        grid[r-1][c] = '0';
+                        q.push({r-1,c});
                     }
                 }
                 res++;
