@@ -1,0 +1,40 @@
+class Solution {
+private:
+    vector<int> vis;
+    vector<bool> path;
+    vector<int> res;
+    bool b = false;
+public:
+    void dfs(int v, vector<vector<int>>& adj){
+        if(vis[v] == 1){
+            b = true;
+            return;
+        }
+        if(path[v] == true) return;
+        int sz = adj[v].size();
+        vis[v] = 1;
+        for(int i = 0; i < sz; i++){
+            dfs(adj[v][i], adj);
+            if(b) return;
+        }
+        vis[v] = 0;
+        path[v] = true;
+        res.push_back(v);
+    }
+    vector<int> eventualSafeNodes(vector<vector<int>>& adj) {
+        int n = adj.size();
+        path.resize(n, false);
+        vis.resize(n,0);
+
+        for(int i = 0; i < n; i++){
+            if(path[i] == true){
+                cout<< i << endl;
+                continue;
+            } 
+            dfs(i, adj);
+            b = false;
+        }
+        sort(res.begin(), res.end());
+        return res;
+    }
+};
